@@ -1,9 +1,11 @@
 $(document).ready(function() {
-    var gameProvider = new GameProvider();
-    var gameController = new GameController(gameProvider);
-    gameProvider.getInfo(function(result) {
-        console.log(result);
-    });
+	var gameController = new GameController()
 
-    $('body').html(gameController.buildBoard());
-});
+	var tempHtml = '<div class="card">'
+	tempHtml += '<div class="card-content">'
+	tempHtml += '<button class="load-list button is-large is-info is-loading">Loading</button>'
+	tempHtml += '</div></div>'
+	$('.container').html(tempHtml)
+	
+	gameController.renderGameList()
+})

@@ -1,86 +1,112 @@
-const API_BASE_URL = 'https://strategoavans.herokuapp.com/api/';
-const API_TOKEN = '5EQencpHg5Z6Rt1DpPLDyCCQJAtwfJbt';
-const API_TOKEN_TIM = '';
+const API_BASE_URL = 'https://strategoavans.herokuapp.com/api/'
+const API_TOKEN = '5EQencpHg5Z6Rt1DpPLDyCCQJAtwfJbt'
+
+localStorage.setItem('api-key', API_TOKEN)
 
 function GameProvider() {
-    var self = this;
+	var self = this
 
-    self.buildUrl = function(path) {
-        var token = self.token || API_TOKEN;
-        return API_BASE_URL + path + '?api_key=' + token;
-    }
+	self.buildUrl = function (path) {
+		//var token = self.token || API_TOKEN
 
-    self.getToken = function() {
-        return self.token || API_TOKEN;
-    }
+		return API_BASE_URL + path + '?api_key=' + localStorage.getItem('api-key')
+	}
 
-    self.setToken = function(token, callback) {
-        if(token == "default") {
-            self.token = null;
-            return;
-        }
+	self.getToken = function () {
+		return localStorage.getItem('api-key')
+	}
 
-        self.token = token;
+	self.setToken = function (token, callback) {
+		if (token == "default") {
+			self.token = null
 
-        if(callback) callback();
-    }
+			return
+		}
 
-    self.getInfo = function(callback) {
-        $.ajax({
-            url: self.buildUrl('users/me'),
-            method: 'get',
-            success: callback,
-        });
-    }
+		localStorage.setItem('api-key') = token
 
-    self.getGameList = function(callback) {
-        $.ajax({
-            url: self.buildUrl('games'),
-            method: 'get',
-            success: callback,
-        });
-    }
+		if (callback) callback()
+	}
 
-    self.deleteGameList = function(callback) {
-        $.ajax({
-            url: self.buildUrl('games'),
-            method: 'delete',
-            success: callback,
-        });
-    }
+self.getInfo = function (callback) {
+	$.ajax({
+		url: self.buildUrl('users/me'),
+		method: 'get',
+		success: callback,
+	})
+}
 
-    self.requestGame = function(ai, callback) {
-        $.ajax({
-            url: self.buildUrl('games'),
-            method: 'post',
-            data: {"ai": ai },
-            success: callback,
-        });
-    }
+self.getGameList = function (callback) {
+	$.ajax({
+		url: self.buildUrl('games'),
+		method: 'get',
+		success: callback,
+	})
+}
 
-    self.postMove = function(gameId, moveData, callback) {
-        $.ajax({
-            url: self.buildUrl('games/' + gameId + '/moves' ),
-            method: 'post',
-            data: moveData,
-            success: callback,
-        })
-    }
+self.find = function (gameId, callback) {
+	$.ajax({
+		url: self.buildUrl('games/' + gameId),
+		method: 'get',
+		success: callback,
+	})
+}
 
-    self.getMoves = function(gameId, callback) {
-        $.ajax({
-            url: self.buildUrl('games/' + gameId + '/moves'),
-            method: 'get',
-            success: callback,
-        })
-    }
+self.deleteGameList = function (callback) {
+	$.ajax({
+		url: self.buildUrl('games'),
+		method: 'delete',
+		success: callback,
+	})
+}
 
-    self.startBoard = function(gameId, board, callback) {
-        $.ajax({
-            url: self.buildUrl('games/' + gameId + '/startboard'),
-            method: 'post',
-            data: board,
-            success: callback,
-        })
-    }
+self.requestGame = function (ai, callback) {
+	$.ajax({
+		url: self.buildUrl('games'),
+		method: 'post',
+		contentType: 'application/json',
+		data: JSON.stringify({ "ai": ai }),
+		success: callback,
+		error: function(xhr, exception) {
+			alert(xhr.responseJSON.message)
+		}
+	})
+}
+
+self.postMove = function (gameId, moveData, callback) {
+	$.ajax({
+		url: self.buildUrl('games/' + gameId + '/moves'),
+		method: 'post',
+		contentType: 'application/json',
+		data: JSON.stringify(moveData),
+		success: callback,
+		error: function(xhr, exception) {
+			$('.clickable-piece').removeAttr('data-isClicked')
+			var message = xhr.responseJSON.message
+			alert(xhr.responseJSON.message)
+			}
+		})
+}
+
+self.getMoves = function (gameId, callback) {
+	$.ajax({
+		url: self.buildUrl('games/' + gameId + '/moves'),
+		method: 'get',
+		success: callback,
+	})
+}
+
+self.startBoard = function (gameId, board, callback) {
+	$.ajax({
+		url: self.buildUrl('games/' + gameId + '/start_board'),
+		method: 'post',
+		contentType: 'application/json',
+		data: JSON.stringify(board),
+		success: callback,
+		error: function(xhr, exception) {
+			console.log(xhr)
+			alert(xhr.responseJSON.message)
+		}
+	})
+}
 }

@@ -1,0 +1,92 @@
+html {
+	background-image: url('../img/wallpaper2.jpg');
+}
+
+.logo {
+	margin-left: auto;
+	margin-right: auto;
+	float: center;
+	width: 40%;
+	max-width: 65%;
+	max-height: 65%;
+}
+
+.gameboard {
+	margin: auto;
+	max-width: 100%;
+	/*max-height: 65%;*/
+}
+
+.refresh, .refresh-game {
+	width: 56px;
+}
+
+.load-list {
+	width: 100%; 
+	margin: auto;
+}
+
+#wrapper {
+    width: 100%;
+    overflow: hidden;  add this to contain floated children 
+}
+#board_pieces {
+    width: 35%;
+	height: 100%;
+    float: right; 
+	background-color: green;
+}
+#gameboard {
+	width: 60%;
+	height: 60%;
+	max-width: 60%%;
+    float: left; 
+}
+
+.board_pieces {
+	width: 200px;
+    height: 250px;
+    background-color: red;
+}
+
+.gamelist {
+
+}
+
+.container {
+	margin-left: auto;
+	margin-right: auto;
+	float: center;
+	width: 1100px;
+	max-width: 100%;
+	max-height: 100%;
+}
+
+.title, .subtitle {
+	color: black !important;
+}
+
+.games-header, .info-header {
+	color: black !important;
+}
+
+.card-header {
+	background-color: #3273dc;
+}
+
+.card-header-title {
+	color: white !important;
+}
+
+td {
+	border: solid #01579B 1px;
+	background-color: #fff;
+	width: 32px;
+	height: 32px;
+	text-align: center;
+}
+
+h1 {
+	font-size: 48px;
+	text-align: center;
+}
