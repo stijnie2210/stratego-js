@@ -1,5 +1,6 @@
 
 function ClickListener() {
+	
 }
 
 ClickListener.registerListener = function(elementClass, callback) {

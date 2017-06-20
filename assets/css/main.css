@@ -28,7 +28,7 @@ html {
 
 #wrapper {
     width: 100%;
-    overflow: hidden;  add this to contain floated children 
+    overflow: hidden;  
 }
 #board_pieces {
     width: 35%;
@@ -51,6 +51,11 @@ html {
 
 .gamelist {
 
+}
+
+.to-click {
+	width: 200px;
+    height: 250px;
 }
 
 .container {
@@ -79,11 +84,12 @@ html {
 }
 
 td {
-	border: solid #01579B 1px;
+	border: solid black 1px;
 	background-color: #fff;
 	width: 32px;
 	height: 32px;
 	text-align: center;
+	padding: 0;
 }
 
 h1 {

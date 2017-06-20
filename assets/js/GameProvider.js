@@ -1,14 +1,16 @@
 const API_BASE_URL = 'https://strategoavans.herokuapp.com/api/'
 const API_TOKEN = '5EQencpHg5Z6Rt1DpPLDyCCQJAtwfJbt'
 
-localStorage.setItem('api-key', API_TOKEN)
-
 function GameProvider() {
 	var self = this
 
-	self.buildUrl = function (path) {
-		//var token = self.token || API_TOKEN
+	if(localStorage.getItem('api-key') != API_TOKEN) {
+		
+	} else {
+		localStorage.setItem('api-key', API_TOKEN)
+	}
 
+	self.buildUrl = function (path) {
 		return API_BASE_URL + path + '?api_key=' + localStorage.getItem('api-key')
 	}
 
@@ -84,8 +86,8 @@ self.postMove = function (gameId, moveData, callback) {
 			$('.clickable-piece').removeAttr('data-isClicked')
 			var message = xhr.responseJSON.message
 			alert(xhr.responseJSON.message)
-			}
-		})
+		}
+	})
 }
 
 self.getMoves = function (gameId, callback) {

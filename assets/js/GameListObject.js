@@ -14,6 +14,8 @@ GameList.prototype.render = function() {
 	html += '</div></div> <br>'
 	html += '<ul class="gamelist">'
 
+	// Render html per game
+
 	for(var i = 0; i < this.games.length; i++) {
 		html += '<a>'
 		html += '<div class="card game" game-id=' + this.games[i].id + ' game-state=' + this.games[i].state + '>'

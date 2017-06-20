@@ -10,7 +10,7 @@ var STATES = {
 	states: {
 		0: 'Set up your board',
 		1: 'Waiting for an opponent',
-		2: 'Waiting for opponent pieces',
+		2: 'Waiting for opponent to set up board',
 		3: 'My turn',
 		4: 'Opponents turn',
 		5: 'Game Over'
@@ -24,7 +24,9 @@ function Game(json) {
 	this.winner = json.winner
 
 	this.board = new Board(json.board)
-	this.start_board = json.start_board
+	this.start_board = new Board(json.start_board)
+
+	this.moves = []
 }
 
 Game.prototype.render = function () {
@@ -51,7 +53,6 @@ render += '</div></div>'
 switch(this.state) {
 	case 0:
 		render += '<div class="card"><div class="card-content start-board-card">'
-		// render += '<button class="send-board button is-success is-pulled-right" disabled>Send Board</button>'
 		render += '<h1 class="game-state-card title">Place pieces</h1>'
 		render += '</div></div>'
 
@@ -65,6 +66,10 @@ switch(this.state) {
 		render += this.board.render(false)
 		break
 }
+
+render += '<div class="card"><div class="history card-content">'
+render += '<h1 class="title">History</h1>'
+render += '</div></div>'
 
 	return render
 }

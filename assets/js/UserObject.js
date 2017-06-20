@@ -12,7 +12,9 @@ User.prototype.render = function() {
 	render += '<header class="card-header"><p class="card-header-title">User Info</p></header>'
 	render += '<div class="card-content">'
 	render += '<p>id: ' + this.id + '</p>'
-	render += '<p>Name: ' + this.name + '</p>'
+	render += '<p>Name: ' + this.name + '</p><br>'
+	render += '<h2 class="subtitle">Other API key:</h2><input class="input api-key" type="text""><br><br>'
+	render += '<button class="button is-success submit-token">Submit</button>'
 	render += '</div></div>'
 
 	return render
