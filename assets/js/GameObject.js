@@ -66,7 +66,10 @@ Game.prototype.render = function () {
 	}
 
 	render += this.board.render(true)
-	render += this.history.render()
+
+	if (this.history) {
+		render += this.history.render()
+	}
 
 	return render
 }
@@ -88,5 +91,8 @@ Game.prototype.getNiceState = function () {
 }
 
 Game.prototype.setHistory = function(historyJson) {
-	this.history = new GameHistory(this.start_board, historyJson)
+	this.history = this.history || new GameHistory(this.start_board)
+	this.history.setMoves(historyJson)
+
+	return this.history
 }

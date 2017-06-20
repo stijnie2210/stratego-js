@@ -1,7 +1,15 @@
 
 function GameHistory(startBoard, movesJson) {
     this.startBoard = startBoard
+    this.board = null
+    this.currentMoveIndex = 0
 
+    if (movesJson) {
+        this.setMoves(movesJson)
+    }
+}
+
+GameHistory.prototype.setMoves = function(movesJson) {
     this.moves = []
 
     for (const moveData of movesJson) {
@@ -9,7 +17,6 @@ function GameHistory(startBoard, movesJson) {
     }
 
     this.currentMoveIndex = this.moves.length - 1
-    this.board = null
 }
 
 GameHistory.prototype.hasNext = function() {

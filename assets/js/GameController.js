@@ -223,6 +223,7 @@ function GameController() {
         this.service.getMoves(id, function(json) {
             self.game.setHistory(json)
 
+            const html = self.game.render()
             $('.history').html(html)
         })
     }
