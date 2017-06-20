@@ -221,18 +221,9 @@ function GameController() {
 
     this.getHistory = function(id) {
         this.service.getMoves(id, function(json) {
-            // console.log(json)
-            var html = '<ul>'
-            for(var i = 0; i < json.length; i++) {
-                if(!json.hasOwnProperty(i)) {
-                    continue
-                }
-                html += '<li>from: ' + json[i].square.row + ' ' + json[i].square.column + '</li>'
-                html += '<li>to: ' + json[i].square_to.row + ' ' + json[i].square_to.column + '</li>'
-            }
-            html += '</ul>'
-            console.log(html)
-            $('.history').append(html)
+            self.game.setHistory(json)
+
+            $('.history').html(html)
         })
     }
 

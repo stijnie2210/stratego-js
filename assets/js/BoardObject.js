@@ -1,17 +1,39 @@
 
 function Board(json) {
-    this.pieces = []
     this.startPieces = []
+    this.build(json)
+}
+
+Board.prototype.build = function(boardJson) {
+    this.pieces = []
 
     for (var rowIndex = 0; rowIndex < 10; rowIndex++) {
         this.pieces[rowIndex] = []
 
         for (var columnIndex = 0; columnIndex < 10; columnIndex++) {
-            var pieceData = json && json[ rowIndex ][ columnIndex ] || ' '
+            var pieceData = boardJson && boardJson[ rowIndex ][ columnIndex ] || ' '
 
             this.pieces[rowIndex][columnIndex] = new Piece(pieceData, rowIndex, columnIndex)
         }
-    }    
+    }
+}
+
+Board.prototype.setTile = function(x, y, piece) {
+    if (!this.pieces[ x ]) {
+        this.pieces[ x ] = []
+    }
+
+    this.pieces[ x ][ y ] = piece
+}
+
+Board.prototype.movePiece = function(move) {
+    const square = move.square
+    const squareTo = move.squareTo
+
+    const piece = this.getTile(square.column, oldSquare.row)
+
+    this.setTile(squareTo.column, squareTo.row, piece)
+    this.setTile(square.column, square.row, null)
 }
 
 Board.prototype.getTile = function(x, y) {
