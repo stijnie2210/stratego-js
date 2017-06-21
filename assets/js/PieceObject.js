@@ -1,21 +1,4 @@
 
-var TYPES = {
-    O: 'blue.png',
-    F: 'red_F.png',
-    B: 'red_B.png',
-    S: 'red_S.png',
-    ' ': 'image_grass.png',
-    1: 'red_1.png',
-    2: 'red_2.png',
-    3: 'red_3.png',
-    4: 'red_4.png',
-    5: 'red_5.png',
-    6: 'red_6.png',
-    7: 'red_7.png',
-    8: 'red_8.png',
-    9: 'red_9.png',
-}
-
 function Piece(json, x, y) {
     this.type = json || ' '
     this.x = x || ''

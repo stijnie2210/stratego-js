@@ -1,5 +1,7 @@
 html {
-	background-image: url('../img/wallpaper2.jpg');
+	background-image: url('../img/wallpaper.jpg');
+	background-size: cover;
+	background-repeat: repeat-y;
 }
 
 .logo {

@@ -4,6 +4,16 @@ const API_TOKEN = '5EQencpHg5Z6Rt1DpPLDyCCQJAtwfJbt'
 function GameProvider() {
 	var self = this
 
+	while(localStorage.getItem('api-key') === null) {
+		var key = prompt('Enter your API key')
+
+		if(key.length == 32) {
+			localStorage.setItem('api-key', key)
+		} else {
+			continue
+		}
+	}
+
 	if(localStorage.getItem('api-key') != API_TOKEN) {
 		
 	} else {

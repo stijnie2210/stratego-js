@@ -25,14 +25,20 @@ function GameController() {
 
     this.gameList = null
 
-    // Great soundtrack during gameplay :)
+    // Great sounds during gameplay :)
 
-    self.sounds = {
+    this.sounds = {
         'intro': new Audio('assets/wav/intro.mp3'),
+        'bomb': new Audio('assets/wav/bomb-explode.mp3'),
+        'fight1': new Audio('assets/wav/fight1.wav'),
+        'victory': new Audio('assets/wav/victory.wav')
     }
 
-    self.sounds.intro.volume = '0.02'
-    self.sounds.intro.play()
+    this.sounds.intro.volume = '0.02'
+    this.sounds.bomb.volume = '0.07'
+    this.sounds.fight1.volume = '0.07'
+    this.sounds.victory = '0.07'
+    this.sounds.intro.play()
 
     // set Socket settings
 
@@ -61,6 +67,7 @@ function GameController() {
         })
 
         socket.on('move', function(move) {
+            console.log('move')
             self.onSocketChangeState()
         })
 
@@ -99,7 +106,9 @@ function GameController() {
             var render = self.game.render()
 
             $('.container').html(render)
-            self.getHistory(gameId)
+
+            // TODO: Make history element with start board
+            // self.getHistory(gameId)
         })
     }
 
@@ -155,22 +164,6 @@ function GameController() {
     // Method for setting up the board when the game has not started yet
 
     this.addStartPiece = function(x, y, piece) {
-        var TYPES = {
-            O: 'blue.png',
-            F: 'red_F.png',
-            B: 'red_B.png',
-            S: 'red_S.png',
-            ' ': 'image_grass.png',
-            1: 'red_1.png',
-            2: 'red_2.png',
-            3: 'red_3.png',
-            4: 'red_4.png',
-            5: 'red_5.png',
-            6: 'red_6.png',
-            7: 'red_7.png',
-            8: 'red_8.png',
-            9: 'red_9.png',
-        }
         
         var x = x
         var y = y -1
@@ -221,7 +214,6 @@ function GameController() {
 
     this.getHistory = function(id) {
         this.service.getMoves(id, function(json) {
-            // console.log(json)
             var html = '<ul>'
             for(var i = 0; i < json.length; i++) {
                 if(!json.hasOwnProperty(i)) {
@@ -231,32 +223,11 @@ function GameController() {
                 html += '<li>to: ' + json[i].square_to.row + ' ' + json[i].square_to.column + '</li>'
             }
             html += '</ul>'
-            console.log(html)
             $('.history').append(html)
         })
     }
 
     this.movePiece = function(id, startCoordinates, moveCoordinates) {
-
-        var DESTROYEDSTATES = {
-            true: 'was',
-            false: 'was not'
-        }
-
-        var PIECES = {
-            F: 'Flag',
-            B: 'Bomb',
-            S: 'Spy',
-            1: 'Marshal',
-            2: 'General',
-            3: 'Colonel',
-            4: 'Major',
-            5: 'Leutenant',
-            6: 'Captain',
-            7: 'Sergeant',
-            8: 'Miner',
-            9: 'Explorer',
-        }
 
         var postData = 
         {
@@ -275,11 +246,25 @@ function GameController() {
                 case "move":
                     break
                 case "attack":
+                    self.sounds.intro.pause()
                     if(json.moves[0].defender == 'F') {
+                        self.sounds.victory.play()
                         alert('You captured the flag. You won the game!')
                         return
                     }
+
+                    if(json.moves[0].defender == 'B' && json.moves[0].attacker != '8') {
+                        self.sounds.bomb.play()
+
+                        alert('Boooooooom!')
+
+                        break
+                    } else {
+                        self.sounds.fight1.play()
+                    }
+                    
                     alert("You attacked the opponent! Your opponent's piece was a: " + PIECES[json.moves[0].defender] + ". Your opponent " + DESTROYEDSTATES[json.moves[0].defender_destroyed] + " destroyed.")
+                    self.sounds.intro.play()
                     break
             }
 

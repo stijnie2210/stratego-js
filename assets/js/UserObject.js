@@ -14,7 +14,8 @@ User.prototype.render = function() {
 	render += '<p>id: ' + this.id + '</p>'
 	render += '<p>Name: ' + this.name + '</p><br>'
 	render += '<h2 class="subtitle">Other API key:</h2><input class="input api-key" type="text""><br><br>'
-	render += '<button class="button is-success submit-token">Submit</button>'
+	render += '<button class="button is-success submit-token">Submit</button><br><br>'
+	render += '<p>Do not have a key yet? <a href="https://strategoavans.herokuapp.com/api_key" target="_blank">Get a key</a></p>'
 	render += '</div></div>'
 
 	return render

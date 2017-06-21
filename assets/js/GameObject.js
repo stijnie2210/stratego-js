@@ -1,22 +1,4 @@
 
-var STATES = {
-	waiting_for_pieces: 0,
-	waiting_for_an_opponent: 1,
-	waiting_for_opponent_pieces: 2,
-	my_turn: 3,
-	opponent_turn: 4,
-	game_over: 5,
-
-	states: {
-		0: 'Set up your board',
-		1: 'Waiting for an opponent',
-		2: 'Waiting for opponent to set up board',
-		3: 'My turn',
-		4: 'Opponents turn',
-		5: 'Game Over'
-	}
-}
-
 function Game(json) {
 	this.id = json.id
 	this.opponent = json.opponent
@@ -66,10 +48,6 @@ switch(this.state) {
 		render += this.board.render(false)
 		break
 }
-
-render += '<div class="card"><div class="history card-content">'
-render += '<h1 class="title">History</h1>'
-render += '</div></div>'
 
 	return render
 }
